@@ -42,6 +42,21 @@ ProcessManager::~ProcessManager()
     }
 }
 
+ProcessManager::Result ProcessManager::setPriority(const ProcessID id, const int priority)
+{
+    Process* p = get(id);
+    if (p == ZERO)
+    {
+        return InvalidArgument;
+    }
+    Process::Result res = p->setPriority(priority);
+    if (res != Success)
+    {
+        return InvalidArgument;
+    }
+    return (priority < m_current->getPriority() ) ? schedule() : Success;
+}
+
 Process * ProcessManager::create(const Address entry,
                                  const MemoryMap &map,
                                  const bool readyToRun,
@@ -421,3 +436,4 @@ ProcessManager::Result ProcessManager::dequeueProcess(Process *proc, const bool 
 
     return Success;
 }
+

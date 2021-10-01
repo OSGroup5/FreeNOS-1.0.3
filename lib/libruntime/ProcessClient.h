@@ -70,7 +70,7 @@ class ProcessClient
     Info;
 
   public:
-
+    void setPriority(const ProcessID pid, int priority);
     /**
      * Get current process identifier
      *
@@ -136,3 +136,4 @@ class ProcessClient
  */
 
 #endif /* __LIB_LIBRUNTIME_PROCESSCLIENT_H */
+

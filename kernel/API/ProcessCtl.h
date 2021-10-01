@@ -36,7 +36,9 @@
  */
 typedef enum ProcessOperation
 {
+    SetPriority = -1,
     Spawn = 0,
+    GetPriority,
     KillPID,
     GetPID,
     GetParent,
@@ -62,6 +64,9 @@ ProcessOperation;
  */
 typedef struct ProcessInfo
 {
+    /** Process Priority number. Must be [-19, 20] */
+    int priority;
+
     /** Process Identity number. Must be unique. */
     ProcessID id;
 
@@ -139,3 +144,4 @@ extern API::Result ProcessCtlHandler(const ProcessID proc,
  */
 
 #endif /* __KERNEL_API_PROCESSCTL_H */
+

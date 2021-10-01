@@ -70,6 +70,16 @@ class ProcessManager
     virtual ~ProcessManager();
 
     /**
+     * Set priority of specific process.
+     *
+     * @param id id of the process
+     * @param priority set the priority of the process to this value.
+     *
+     * @return Process pointer on success or ZERO on failure
+     */
+    Result setPriority(const ProcessID id, const int priority);
+
+    /**
      * Create a new Process.
      *
      * @param entry Process executable entry point
@@ -257,3 +267,4 @@ class ProcessManager
  */
 
 #endif /* __KERNEL_PROCESS_MANAGER_H */
+

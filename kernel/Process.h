@@ -89,6 +89,13 @@ class Process
     virtual ~Process();
 
     /**
+     * Retrieve our process priority.
+     *
+     * @return Process priority.
+     */
+    int getPriority() const;
+
+    /**
      * Retrieve our ID number.
      *
      * @return Process Identification number.
@@ -150,6 +157,13 @@ class Process
     bool operator == (Process *proc);
 
   protected:
+
+    /**
+     * Set the priority level of the process.
+     *
+     * @param priority the priority level in range of [1, 5] to set the process to.
+     */
+    Result setPriority(int priority);
 
     /**
      * Initialize the Process.
@@ -242,6 +256,8 @@ class Process
     void setParent(ProcessID id);
 
   protected:
+    /** Process Priority with default value of 3, range = [1, 5] */
+    int m_priority;
 
     /** Process Identifier */
     const ProcessID m_id;
@@ -292,3 +308,4 @@ class Process
  */
 
 #endif /* __KERNEL_PROCESS_H */
+

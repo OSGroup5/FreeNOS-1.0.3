@@ -48,6 +48,8 @@ API::Result ProcessCtlHandler(const ProcessID procID,
     // Handle request
     switch (action)
     {
+    case SetPriority:
+        return (procs->setPriority(procID, addr) == ProcessManager::Success) ? (API::Success) : (API::InvalidArgument); 
     case Spawn:
         proc = procs->create(addr, map);
         if (!proc)
@@ -132,9 +134,10 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         break;
 
     case InfoPID:
-        info->id    = proc->getID();
-        info->state = proc->getState();
-        info->parent = proc->getParent();
+        info->priority = proc->getPriority();
+        info->id       = proc->getID();
+        info->state    = proc->getState();
+        info->parent   = proc->getParent();
         break;
 
     case WaitPID:
@@ -203,3 +206,4 @@ Log & operator << (Log &log, ProcessOperation op)
     }
     return log;
 }
+
