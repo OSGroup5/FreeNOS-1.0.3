@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <Process.h>
 #include "Renice.h"
-#include "sys/renice.h" //work on this 
+#include "sys/renicepid.h" 
 
 
 Renice::Renice(int argc, char** argv) : POSIXApplication(argc, argv)
