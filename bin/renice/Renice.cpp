@@ -4,14 +4,16 @@
 #include <errno.h>
 #include <unistd.h>
 #include <Process.h>
-#include <ProcessManager.h>
-//#include <sys/Renice.h>
 #include "Renice.h"
+#include "sys/renice.h" //work on this 
+
 
 Renice::Renice(int argc, char** argv) : POSIXApplication(argc, argv)
 {
-	parser().setDescription("Renice for particular process to finish execution.");
-	parser().registerPositional("PROCESS", "Renice for the specified process till it finishes");
+	parser().setDescription("Output system process list");
+   	parser().registerFlag('l', "list", "list priority level of processes");
+	parser().registerPositional("PRIORITY", "Renice for the specified process till it finishes");
+	parser().registerPositional("PID", "Wait for the ID process");
 }
 
 Renice::~Renice() 
@@ -19,18 +21,29 @@ Renice::~Renice()
 	
 }
 
-Renice::Result Renice::exec() {
-	ProcessID arg_id;
-	int store_result, success;
-	if ((arg_id = atoi(arguments().get("PROCESS"))) <= 4) 
-	{
-		ERROR("invalid PID`" << arguments().get("PROCESS") << "'");
-		return InvalidArgument;
-	}
+Renice::Result Renice::exec()
+{
+    int pid = atoi(arguments().get("PID")); // Convert PID to int type
+    Process::Priority priority = static_cast<Process::Priority>(atoi(arguments().get("PRIORITY")));
+    
+    // Check PID
+    if (pid <= 0)
+    {
+        ERROR("PID is invalid `" << arguments().get("PID") << "'");
+        return InvalidArgument;
+    }
+    
+    if (priority < 1 || priority > 5) {
+    	ERROR("priority is invalid");
+    	return InvalidArgument;
+    }
+    
+    // wait  
+    if (renicepid(pid, priority) != pid)
+    {
+        ERROR("failed to wait: " << strerror(errno));
+        return IOError;
+    }
 
-	if (!success) {
-		ERROR("failed to renice: " << arguments().get("PROCESS") << "'");
-		return TimedOut;
-	}
-	return Success;
+    return Success;
 }
