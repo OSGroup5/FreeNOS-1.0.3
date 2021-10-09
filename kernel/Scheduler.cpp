@@ -86,6 +86,7 @@ Process * Scheduler::select()
         }
         Process* p = m_multilevel_queue[i].pop();
         m_multilevel_queue[i].push(p);
+        DEBUG("pid %d selected to run.\n" << p->getID() << "\n");
         return p;
     }
     

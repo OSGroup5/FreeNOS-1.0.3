@@ -54,7 +54,8 @@ ProcessManager::Result ProcessManager::setPriority(const ProcessID id, const int
     {
         return InvalidArgument;
     }
-    return (priority < m_current->getPriority() ) ? schedule() : Success;
+    schedule();
+    return Success;
 }
 
 Process * ProcessManager::create(const Address entry,
