@@ -76,8 +76,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
 
 Process * Scheduler::select()
 {
-    
-
     for (int i = 0; i < 5; ++i)
     {
         if (m_multilevel_queue[i].isEmpty())
@@ -86,7 +84,8 @@ Process * Scheduler::select()
         }
         Process* p = m_multilevel_queue[i].pop();
         m_multilevel_queue[i].push(p);
-        DEBUG("pid %d selected to run.\n" << p->getID() << "\n");
+        //if (p->getID() == 18 || p->getID() == 17)
+        //    ERROR("PROCESS ID " << p->getID() << " selected to run.\n");
         return p;
     }
     

@@ -49,7 +49,11 @@ ProcessManager::Result ProcessManager::setPriority(const ProcessID id, const int
     {
         return InvalidArgument;
     }
+
+    dequeueProcess(p, true);
     Process::Result res = p->setPriority(priority);
+    enqueueProcess(p, false);
+
     if (res != Success)
     {
         return InvalidArgument;

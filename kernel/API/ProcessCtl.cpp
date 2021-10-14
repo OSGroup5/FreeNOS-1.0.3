@@ -189,20 +189,21 @@ Log & operator << (Log &log, ProcessOperation op)
 {
     switch (op)
     {
-        case Spawn:     log.append("Spawn"); break;
-        case KillPID:   log.append("KillPID"); break;
-        case GetPID:    log.append("GetPID"); break;
-        case GetParent: log.append("GetParent"); break;
-        case WatchIRQ:  log.append("WatchIRQ"); break;
-        case EnableIRQ: log.append("EnableIRQ"); break;
-        case DisableIRQ:log.append("DisableIRQ"); break;
-        case InfoPID:   log.append("InfoPID"); break;
-        case WaitPID:   log.append("WaitPID"); break;
-        case InfoTimer: log.append("InfoTimer"); break;
-        case EnterSleep: log.append("EnterSleep"); break;
-        case Schedule:  log.append("Schedule"); break;
-        case Wakeup:    log.append("Wakeup"); break;
-        default:        log.append("???"); break;
+        case SetPriority:   log.append("SetPriority"); break;
+        case Spawn:         log.append("Spawn"); break;
+        case KillPID:       log.append("KillPID"); break;
+        case GetPID:        log.append("GetPID"); break;
+        case GetParent:     log.append("GetParent"); break;
+        case WatchIRQ:      log.append("WatchIRQ"); break;
+        case EnableIRQ:     log.append("EnableIRQ"); break;
+        case DisableIRQ:    log.append("DisableIRQ"); break;
+        case InfoPID:       log.append("InfoPID"); break;
+        case WaitPID:       log.append("WaitPID"); break;
+        case InfoTimer:     log.append("InfoTimer"); break;
+        case EnterSleep:    log.append("EnterSleep"); break;
+        case Schedule:      log.append("Schedule"); break;
+        case Wakeup:        log.append("Wakeup"); break;
+        default:            log.append("???"); break;
     }
     return log;
 }
