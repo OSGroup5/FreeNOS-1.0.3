@@ -38,6 +38,34 @@ ProcessList::Result ProcessList::exec()
     if (arguments().getFlags().count() == 0)
     {
         // Print header
+        out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
+
+        // Loop processes
+        for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
+        {
+            ProcessClient::Info info;
+
+            const ProcessClient::Result result = process.processInfo(pid, info);
+
+            if (result == ProcessClient::Success)
+            {
+                DEBUG("PID " << pid << " state = " << *info.textState << " priority = " << info.kernelState.priority);
+
+                // Output a line
+                char line[128];
+                snprintf(line, sizeof(line),
+                        "%3d %7d %4d %5d %10s %32s\r\n",
+                        pid, info.kernelState.parent,
+                        0, 0, *info.textState, *info.command);
+                out << line;
+            }
+        }
+    }
+
+    // Check for l flag
+    else if(arguments().get("list"))
+    {
+        // Print header
         out << "ID  PRIOR  PARENT  USER GROUP STATUS     CMD\r\n";
 
         // Loop processes
@@ -57,33 +85,6 @@ ProcessList::Result ProcessList::exec()
                         "%3d %6d %7d %4d %5d %10s %32s\r\n",
                         pid, info.kernelState.priority, info.kernelState.parent,
                         0, 0, *info.textState, *info.command);
-                out << line;
-            }
-        }
-    }
-
-    // Check for l flag
-    else if(arguments().get("list"))
-    {
-        // Print header
-        out << "PROCESS-ID  PRIORITY LEVEL\r\n";
-
-        // Loop processes
-        for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
-        {
-            ProcessClient::Info info;
-
-            const ProcessClient::Result result = process.processInfo(pid, info);
-
-            if (result == ProcessClient::Success)
-            {
-                DEBUG("PID " << pid << " state = " << *info.textState << " priority = " << info.kernelState.priority);
-
-                // Output a line
-                char line[128];
-                snprintf(line, sizeof(line),
-                        "%11d %13d\r\n",
-                        pid, info.kernelState.priority);
                 out << line;
             }
         }
