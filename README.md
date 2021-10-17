@@ -1,8 +1,8 @@
-# Wait For It...
+# Project 3: Prioritize It
 
-CS 4310.02 Operating Systems, Project 2
+CS 4310.02 Operating Systems, Project 3
 
-September 20th, 2021
+Oct 18, 2021
 
 ## Names
 
@@ -18,4 +18,4 @@ Sisian Teymoorian
 
 ## DEMO Youtube Link
 
-[Link to Demo](https://youtu.be/TfrGIMeeRZA)
+[Link to Demo](https://www.youtube.com/watch?v=Fszb-6QdQ_g)
