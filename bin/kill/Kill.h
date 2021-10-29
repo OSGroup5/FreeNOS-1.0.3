@@ -17,7 +17,7 @@
 
 #ifndef __BIN_KILL_KILL_H
 #define __BIN_KILL_KILL_H
-
+#include <sys/types.h>
 #include <POSIXApplication.h>
 
 /**
@@ -26,7 +26,7 @@
  */
 
 /**
- * Kills a background process.
+ * Kill a background process.
  */
 class Kill : public POSIXApplication
 {
@@ -39,6 +39,11 @@ class Kill : public POSIXApplication
      * @param argv Argument values
      */
     Kill(int argc, char **argv);
+
+    /**
+     * Destructor
+     */
+    virtual ~Kill();
 
     /**
      * Execute the application.
