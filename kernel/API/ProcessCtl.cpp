@@ -189,7 +189,6 @@ Log & operator << (Log &log, ProcessOperation op)
 {
     switch (op)
     {
-        case KillPID:       log.append("KillPID"); break; 
         case SetPriority:   log.append("SetPriority"); break;
         case Spawn:         log.append("Spawn"); break;
         case KillPID:       log.append("KillPID"); break;
