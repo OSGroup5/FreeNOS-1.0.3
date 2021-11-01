@@ -28,6 +28,10 @@ void ProcessClient::setPriority(const ProcessID pid, int priority)
 {
     ProcessCtl(pid, SetPriority, priority);
 }
+void ProcessClient::killProcess(const ProcessID pid)
+{
+    ProcessCtl(pid, KillPID);
+}
 
 ProcessID ProcessClient::getProcessID() const
 {
