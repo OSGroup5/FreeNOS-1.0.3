@@ -7,13 +7,11 @@
 #include <ProcessClient.h>
 #include "Kill.h"
 
-int processID;
 
 Kill::Kill(int argc, char** argv) : POSIXApplication(argc, argv)
 {
 	parser().setDescription("Kill a background process.");
 	parser().registerPositional("PROCESS", "The process id of a background process to kill.");
-	processID =atoi(argv[1]);
 }
 
 Kill::~Kill() 
@@ -22,9 +20,10 @@ Kill::~Kill()
 
 Kill::Result Kill::exec()
 {
-   printf("processID = %d\n", processID);
-   ProcessClient process;
-   process.killProcess(processID);
+    // Get Process ID of a currently running process
+    ProcessID pid = atoi(arguments().get("PROCESS"));
+
+    ProcessCtl(pid, KillPID);
 
     // Done
     return Success;
